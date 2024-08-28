@@ -1,16 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  font-family: poppins;
+  scrollbar-width: none;
+}
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* --primary-color: #8949ff;
+  --primary-light: #a86aff;
+  --primary-dark: #5f32b8;
+  --primary-bg: #f3e6ff; */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --primary-color: #00aaff;
+  --primary-light: #5cd2f9;
+  --primary-dark: #007acc;
+  --primary-bg: #b9f9ee;
+  --primary-bg-light: #c4f6fdb8;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --shadow-light: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  min-height: 100vh;
+  /* display: flex;
+  place-items: center;
+  min-width: 320px;
+  */
 }
 
 /* 
@@ -23,13 +45,6 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
 
 button {
   border-radius: 8px;

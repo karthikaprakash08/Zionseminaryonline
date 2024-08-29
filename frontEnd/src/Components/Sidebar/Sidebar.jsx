@@ -5,7 +5,7 @@ import logoTxt from "/logo.png";
 import "./Sidebar.css";
 // import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faHome,
   faUser,
@@ -44,12 +44,12 @@ function SidebarItem({
     marginLeft: expanded
       ? ""
       : windowWidth <= 1125 && !splMargin
-      ? "8px"
-      : windowWidth <= 1125 && splMargin
-      ? "6.5px"
-      : splMargin
-      ? "8.25px"
-      : "10.25px",
+        ? "8px"
+        : windowWidth <= 1125 && splMargin
+          ? "6.5px"
+          : splMargin
+            ? "8.25px"
+            : "10.25px",
     flex: expanded ? 1 : "",
   };
 

@@ -5,6 +5,8 @@ import Dashboard from "../Components/Dashboard";
 import Courses from "../Components/Courses/Courses";
 import Enrolled from "../Components/Enrolled/Enrolled";
 import Home from "../Components/Home/Home";
+import AddnewCourse from "../Admin/pages/courses/new-course/AddnewCourse";
+import AllCourses from "../Admin/pages/courses/AllCourses";
 
 const AppRoutes = () => {
   return (
@@ -17,7 +19,8 @@ const AppRoutes = () => {
         <Route path="/courses" element={<Courses />} />
         <Route path="/enrolled" element={<Enrolled />} />
       </Route>
-      <Route path="/admin" element={<CourseList />} />
+      <Route path="/admin" element={<AllCourses />} />
+      <Route path="/admin/courses/new" element={<AddnewCourse />} />
     </Routes>
   );
 };

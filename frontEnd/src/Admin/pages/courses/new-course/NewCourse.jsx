@@ -116,9 +116,9 @@ const NewCourse = () => {
     >
       <div className="top-header-cnt">
         <div>
-          <h3 className="course-new-title">Create New Course</h3>
+          <h3 className="course-new-title">Create New Degree</h3>
           <p className="course-new-discription">
-            Create new course and lets publish
+            Create new degree and lets publish
           </p>
         </div>
         <div className="top-btn-cnt">
@@ -126,14 +126,14 @@ const NewCourse = () => {
             Cancel
           </div>
           <div className="add-new-lesson-btn" onClick={() => uploadCourse()}>
-            Save Course
+            Save Degree
           </div>
         </div>
       </div>
       <div className="input-split-cover">
         <form className="left-form">
           <div className="course-name-cnt">
-            <p>Enter course Name</p>
+            <p>Enter degree Name</p>
             <input
               type="text"
               name=""
@@ -145,7 +145,7 @@ const NewCourse = () => {
           </div>
 
           <div className="course-description-cnt">
-            <p>Describe course</p>
+            <p>Describe degree</p>
             <textarea
               type="text"
               name=""
@@ -157,7 +157,7 @@ const NewCourse = () => {
           </div>
           <div className="flex-input">
             <div className="course-name-cnt">
-              <p>Enter course price</p>
+              <p>Enter degree price</p>
               <input
                 type="number"
                 name=""
@@ -169,7 +169,7 @@ const NewCourse = () => {
               />
             </div>
             <div className="course-name-cnt">
-              <p>Upload course thumbnail</p>
+              <p>Upload degree thumbnail</p>
               <input
                 type="file"
                 accept="png,svg"
@@ -236,13 +236,13 @@ const NewCourse = () => {
         <form className="form-right">
           <div className="form-right-header">
             <h3 className="course-new-title form-right-heading">
-              List The Lessons
+              Course List
             </h3>
             <div
               className="add-new-lesson-btn"
               onClick={() => setPopupOpen({ open: true, data: null })}
             >
-              Add new lesson
+              Add new course
             </div>
           </div>
 

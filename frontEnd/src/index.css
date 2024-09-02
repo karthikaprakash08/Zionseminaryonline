@@ -5,6 +5,10 @@
   /* scrollbar-width: none; */
 }
 
+a{
+  text-decoration: none;
+}
+
 html {
   scroll-behavior: smooth;
 }

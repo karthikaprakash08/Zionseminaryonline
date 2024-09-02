@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import imgd from "../Assets/Images/imagenotxt2.png";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import ErrorDataFetchOverlay from "../Error/ErrorDataFetchOverlay";
+import courseDataJson from "../Assets/Data/CourseList.json";
 
 const Enrolled = () => {
   const navigate = useNavigate();
@@ -14,6 +15,11 @@ const Enrolled = () => {
   const [fetchError, setFetchError] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [hasPurchasedCourses, setHasPurchasedCourses] = useState(true);
+
+  useEffect(()=>{
+    setIsLoading(false)
+    setCoursesData(courseDataJson);
+  })
 
   // Data Fetching
   // useEffect(() => {
@@ -87,38 +93,38 @@ const Enrolled = () => {
   //   }
   // }, [coursesData]);
 
-  // const resolveImagePath = (imagePath) => {
-  //   if (
-  //     imagePath &&
-  //     (imagePath.startsWith("http://") || imagePath.startsWith("https://"))
-  //   ) {
-  //     return imagePath;
-  //   } else if (imagePath && imagePath.startsWith("base64")) {
-  //     return imgd;
-  //   } else {
-  //     try {
-  //       return require(`../Assets/Images/${imagePath}`);
-  //     } catch (error) {
-  //       return imgd;
-  //     }
-  //   }
-  // };
+  const resolveImagePath = (imagePath) => {
+    if (
+      imagePath &&
+      (imagePath.startsWith("http://") || imagePath.startsWith("https://"))
+    ) {
+      return imagePath;
+    } else if (imagePath && imagePath.startsWith("base64")) {
+      return imgd;
+    } else {
+      try {
+        return require(`../Assets/Images/${imagePath}`);
+      } catch (error) {
+        return imgd;
+      }
+    }
+  };
 
-  // const filterCourses = (filters) => {
-  //   try {
-  //     if (filters.length === 0) {
-  //       return coursesData;
-  //     } else {
-  //       return coursesData.filter((course) =>
-  //         course.lessons.some((lesson) => filters.includes(lesson.title))
-  //       );
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //     setFetchError(true);
-  //     return [];
-  //   }
-  // };
+  const filterCourses = (filters) => {
+    try {
+      if (filters.length === 0) {
+        return coursesData;
+      } else {
+        return coursesData.filter((course) =>
+          course.lessons.some((lesson) => filters.includes(lesson.title))
+        );
+      }
+    } catch (err) {
+      console.log(err);
+      setFetchError(true);
+      return [];
+    }
+  };
 
   // const handleFilterClick = (filter) => {
   //   if (selectedFilters.includes(filter)) {
@@ -132,24 +138,24 @@ const Enrolled = () => {
   //   setSelectedFilters([]);
   // };
 
-  // const truncateDescription = (description) => {
-  //   const words = description.split(" ");
-  //   const truncated = words.slice(0, 15).join(" ");
-  //   return truncated;
-  // };
+  const truncateDescription = (description) => {
+    const words = description.split(" ");
+    const truncated = words.slice(0, 15).join(" ");
+    return truncated;
+  };
 
-  // if (isLoading) {
-  //   return (
-  //     <div>
-  //       <LoadingPage />
+  if (isLoading) {
+    return (
+      <div>
+        <LoadingPage />
 
-  //     </div>
-  //   );
-  // }
-
-  if (!fetchError) {
-    return <ErrorDataFetchOverlay />;
+      </div>
+    );
   }
+
+  // if (!fetchError) {
+  //   return <ErrorDataFetchOverlay />;
+  // }
 
   return (
     <>

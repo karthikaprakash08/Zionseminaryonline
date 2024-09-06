@@ -1,22 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import DemoImgae from '../../assets/Images/imagenotxt2.png'
 
 const CourseCard = ({ data }) => {
   const navigate = useNavigate();
-  const resloveImagePath = (relativePath) => {
-    return require(`../Assets/Images/imagenotxt.png`);
-  };
+  // const resloveImagePath = (relativePath) => {
+  //   return require(`../Assets/Images/imagenotxt.png`);
+  // };
   return (
     <div
       className="course-card"
-      onClick={() => navigate("Course/edit", { state: data })}
+      onClick={() => navigate("courses/edit", { state: data })}
     >
       <img
-        src={resloveImagePath(data?.image)}
+        src={DemoImgae}
         alt={data?.image}
         className="course-img"
       />
-      <h4 className="course-card-title">{data?.title}</h4>
+      <h4 className="course-card-title">{data?.domain}</h4>
       <p className="course-card-description">{data?.description?.slice(0,80)}..</p>
       <div className="course-edit-btn">
       <p>Edit Course</p>

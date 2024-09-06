@@ -5,6 +5,7 @@ import Edit from "../../../assets/Images/edit.png";
 import EditImg from "../../../assets/Images/edit.png";
 import { useNavigate } from "react-router-dom";
 import NewLesson from "./NewLesson";
+import { addNewDegree } from "../../../api/baseApi";
 // import { addnewCourse } from "../../../api/baseApi";
 // import { convertToCourseFormData } from "../../../hooks/newCourseFunctions";
 
@@ -18,12 +19,12 @@ const NewCourse = () => {
 
   const navigate = useNavigate();
   const [courseData, setCourseData] = useState({
-    title: "",
+    domain: "",
     description: "",
     price: null,
     thumbnail: null,
     overviewPoints: [],
-    lessons: [],
+    packages: [],
   });
 
   useEffect(() => {
@@ -61,32 +62,33 @@ const NewCourse = () => {
 
   const addLessontoCourse = (lesson) => {
     console.log(lesson)
-    const newLessons = [...courseData.lessons];
+    const newPackages = [...courseData.packages];
     if (lesson.updateIndex === null) {
-      newLessons.push({
+      newPackages.push({
         ...lesson,
-        updateIndex: newLessons?.length > 0 ? newLessons?.length : 0,
+        updateIndex: newPackages?.length > 0 ? newPackages?.length : 0,
       });
-      setCourseData({ ...courseData, lessons: newLessons });
+      setCourseData({ ...courseData, packages: newPackages });
     } else {
-      newLessons[lesson.updateIndex] = lesson;
-      setCourseData({ ...courseData, lessons: newLessons });
+      newPackages[lesson.updateIndex] = lesson;
+      setCourseData({ ...courseData, packages: newPackages });
     }
     setPopupOpen({ open: false });
   };
 
   const uploadCourse = async () => {
     if (
-      courseData.title &&
-      courseData.description &&
-      courseData.lessons.length > 0 &&
+      courseData.domain &&
+      // courseData.description &&
+      courseData.packages.length > 0 &&
       courseData.price
     ) {
       try {
-        const courseFormData = convertToCourseFormData(courseData)
-        const { data } = await addnewCourse(courseFormData);
+        // const courseFormData = convertToCourseFormData(courseData)
+        console.log(courseData)
+        const { data } = await addNewDegree(courseData);
         console.log(data);
-        navigate('/')
+        navigate('/admin')
       } catch (error) {
         console.log(error);
       }
@@ -127,9 +129,9 @@ const NewCourse = () => {
               type="text"
               name=""
               id=""
-              value={courseData?.title}
+              value={courseData?.domain}
               className="name-input"
-              onChange={(e) => handledirectInput("title", e.target.value)}
+              onChange={(e) => handledirectInput("domain", e.target.value)}
             />
           </div>
 
@@ -182,8 +184,8 @@ const NewCourse = () => {
           </div>
 
           <div className="lesson-list-cnt">
-            {courseData.lessons?.length > 0 ? (
-              courseData?.lessons?.map((lesson, index) => (
+            {courseData.packages?.length > 0 ? (
+              courseData?.packages?.map((lesson, index) => (
                 <div
                   className="lesson"
                   onClick={() => setPopupOpen({ open: true, data: lesson })}

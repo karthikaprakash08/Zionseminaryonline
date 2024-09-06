@@ -4,25 +4,28 @@ import "./courses.css";
 
 // import courseList from "../Assets/Data/courseList.json";
 import { useNavigate } from "react-router-dom";
+import { getAllDegree } from "../../api/baseApi";
 
 const CourseList = () => {
   const navigate = useNavigate();
   const [courses, SetCourses] = useState(null);
 
-  // useEffect(() => {
-  //   const fetchCourses = async () => {
-  //     try {
-  //       if (courses === null) {
-  //         const { data } = await getAllCourse();
-  //         SetCourses(data);
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        if (courses === null) {
+          console.log("data")
+          const { data } = await getAllDegree();
+          console.log(data)
+          SetCourses(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  //   fetchCourses()
-  // }, [courses])
+    fetchCourses()
+  }, [courses])
 
 
   return (

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 // import Nolesson from "../../Assets/Images/no-lesson-illustration.svg";
-import Trash from "../../Assets/Images/trash.png";
-import EditImg from "../../Assets/Images/edit.png";
+import Trash from "../../../assets/Images/trash.png";
+import EditImg from "../../../assets/Images/edit.png";
 // import TestData from "../../Assets/Data/courseContent.json";
-import Nolesson from "../../Assets/Images/no-lesson-illustration.svg";
-import BackIcon from "../../Assets/Images/left-arrow.png";
+import Nolesson from "../../../assets/Images/no-lesson-illustration.svg";
+import BackIcon from "../../../assets/Images/left-arrow.png";
 import { useNavigate } from "react-router-dom";
-import { deleteCourse, updateCourse } from "../../../api/baseApi";
 import NewLesson from "../new-course/NewLesson";
+import { deleteDegree, editDegree } from "../../../api/baseApi";
 
 const Edit = ({ courseDetails }) => {
   const [popupOpen, setPopupOpen] = useState({ open: false, data: null });
@@ -70,31 +70,31 @@ const Edit = ({ courseDetails }) => {
 
   const addLessontoCourse = (lesson) => {
     console.log("lesson", lesson);
-    const newLessons = [...courseData.lessons];
+    const newLessons = [...courseData.packages];
     if (lesson?.updateIndex === null || lesson?.updateIndex === undefined) {
       newLessons.push({
         ...lesson,
         updateIndex: newLessons?.length > 0 ? newLessons?.length : 0,
       });
-      setCourseData({ ...courseData, lessons: newLessons });
+      setCourseData({ ...courseData, packages: newLessons });
     } else {
       newLessons[lesson.updateIndex] = lesson;
-      setCourseData({ ...courseData, lessons: newLessons });
+      setCourseData({ ...courseData, packages: newLessons });
     }
     setPopupOpen({ open: false });
   };
 
   const uploadCourse = async () => {
     if (
-      courseData.title &&
-      courseData.description &&
-      courseData.lessons.length > 0 &&
-      courseData.price
+      courseData.domain &&
+      // courseData.description &&
+      courseData.packages.length > 0
+      // courseData.price
     ) {
       try {
-        const { data } = await updateCourse(courseData);
+        const { data } = await editDegree(courseDetails._id,courseData);
         console.log(data);
-        navigate("/");
+        navigate("/admin");
       } catch (error) {
         console.log(error);
       }
@@ -111,8 +111,8 @@ const Edit = ({ courseDetails }) => {
     );
     if (confirm) {
       try {
-        const res = await deleteCourse(courseDetails._id);
-        if (res) navigate("/");
+        const res = await deleteDegree(courseDetails._id);
+        if (res) navigate("/admin");
       } catch (error) {
         console.log(error);
       }
@@ -207,9 +207,9 @@ const Edit = ({ courseDetails }) => {
               name=""
               id=""
               className="name-input"
-              value={courseData.title}
+              value={courseData.domain}
               readOnly={editCourse ? false : true}
-              onChange={(e) => handledirectInput("title", e.target.value)}
+              onChange={(e) => handledirectInput("domain", e.target.value)}
             />
           </div>
 
@@ -303,7 +303,7 @@ const Edit = ({ courseDetails }) => {
                         alt="edit"
                         className="action-img-overview"
                         onClick={() => setEditValues(overview, index)}
-                        // onClick={() => openEdit()}
+                      // onClick={() => openEdit()}
                       />
                     </div>
                   )}
@@ -328,8 +328,8 @@ const Edit = ({ courseDetails }) => {
             )}
           </div>
           <div className="lesson-list-cnt">
-            {courseData.lessons?.length > 0 ? (
-              courseData?.lessons?.map((lesson, index) => (
+            {courseData.packages?.length > 0 ? (
+              courseData?.packages?.map((lesson, index) => (
                 <div
                   className="lesson"
                   style={{ pointerEvents: editCourse ? "all" : "none" }}
@@ -337,14 +337,14 @@ const Edit = ({ courseDetails }) => {
                 >
                   <h1 className="lesson-number">{index + 1}</h1>
                   <div className="lesson-title-cnt">
-                    <h3 className="lesson-title">{lesson?.title}</h3>
+                    <h3 className="lesson-title">{lesson?.name}</h3>
                   </div>
                   <ul className="lesson-subtitle-cnt">
-                    {lesson?.chapter?.map((video) => (
+                    {lesson?.features?.map((feature) => (
                       <li>
-                        <p className="lesson-subtitle">{video?.title}</p>
+                        <p className="lesson-subtitle">{feature}</p>
                         <p className="lesson-duration-txt">
-                          duration : {video?.duration}
+                          duration : {feature?.duration}
                         </p>
                       </li>
                     ))}

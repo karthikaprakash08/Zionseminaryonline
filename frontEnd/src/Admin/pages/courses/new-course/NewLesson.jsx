@@ -3,35 +3,25 @@ import Trash from "../../../assets/Images/trash.png";
 import Edit from "../../../assets/Images/edit.png";
 import Test from "../../../assets/Images/exam.png";
 // import { uploadDocument, uploadVedio } from "../../../api/baseApi";
-// import { findFileType } from "../../../hooks/newCourseFunctions";
 import BackIcon from "../../../assets/Images/left-arrow.png";
+import { findFileType } from "../../../hooks/newCourseFunctions";
 
 const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
 
   const [currentLesson, setCurrentLesson] = useState({
-<<<<<<< Updated upstream
-    title: null,
-    chapter: [],
-    testId: "",
-=======
     name: null,
     features: [],
->>>>>>> Stashed changes
     updateIndex: null,
   });
-<<<<<<< Updated upstream
-  const [currentSublesson, setCurrentSublesson] = useState({
-    title: "",
-    duration: "",
-    link: "#",
-    updateIndex: null,
-    type: null,
-  });
-
-=======
+  // const [currentSublesson, setCurrentSublesson] = useState({
+  //   title: "",
+  //   duration: "",
+  //   link: "#",
+  //   updateIndex: null,
+  //   type: null,
+  // });
   const [currentSublesson, setCurrentSublesson] = useState("")
   const [currentUpdateIndex, setCurrentUpdateIndex] = useState(null)
->>>>>>> Stashed changes
   const [sublessonFile, setSublessonFile] = useState(null);
 
   const handleAddFile = (file) => {
@@ -71,101 +61,80 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
   };
 
   const addSublessons = async () => {
-    const newLessons = [...currentLesson.chapter];
-    if (currentSublesson.title && currentSublesson.duration && sublessonFile) {
-      let Link;
-      if (currentSublesson.type === "video") Link = await getVideoURL();
-      if (
-        currentSublesson.type === "pdf" ||
-        currentSublesson.type === "ppt" ||
-        currentSublesson.type === "doc"
-      )
-        Link = await getDocumentUrl();
+    const newLessons = [...currentLesson.features];
+    if (currentSublesson) {
+      // let Link;
+      // if (currentSublesson.type === "video") Link = await getVideoURL();
+      // if (
+      //   currentSublesson.type === "pdf" ||
+      //   currentSublesson.type === "ppt" ||
+      //   currentSublesson.type === "doc"
+      // )
+      //   Link = await getDocumentUrl();
       if (
         currentUpdateIndex === null ||
         currentUpdateIndex === undefined
       ) {
-<<<<<<< Updated upstream
-        newLessons.push({ ...currentSublesson, link: Link });
-        setCurrentLesson({ ...currentLesson, chapter: newLessons });
-        setCurrentSublesson({
-          title: "",
-          duration: "",
-          link: "#",
-          updateIndex: null,
-          type: null,
-        });
-      } else {
-        newLessons[currentSublesson.updateIndex] = {
-          ...currentSublesson,
-          link: Link,
-        };
-        setCurrentLesson({ ...currentLesson, chapter: newLessons });
-        setCurrentSublesson({
-          title: "",
-          duration: "",
-          link: "#",
-          updateIndex: null,
-          type: null,
-        });
-      }
-    } else if (
-      currentSublesson.link !== "#" &&
-      currentSublesson.title &&
-      currentSublesson.duration
-    ) {
-      newLessons[currentSublesson.updateIndex] = currentSublesson;
-      setCurrentLesson({ ...currentLesson, chapter: newLessons });
-      setCurrentSublesson({
-        title: "",
-        duration: "",
-        link: "#",
-        updateIndex: null,
-        type: null,
-      });
-=======
         newLessons.push(currentSublesson);
         setCurrentLesson({ ...currentLesson, features: newLessons });
         setCurrentSublesson("")
+        // setCurrentSublesson({
+        //   title: "",
+        //   duration: "",
+        //   link: "#",
+        //   updateIndex: null,
+        //   type: null,
+        // });
       } else {
-        newLessons[currentUpdateIndex] = currentSublesson
+        // newLessons[currentSublesson.updateIndex] = {
+        //   ...currentSublesson,
+        //   link: Link,
+        // };
         setCurrentLesson({ ...currentLesson, features: newLessons });
         setCurrentSublesson('')
-        setCurrentUpdateIndex(null)
+        // setCurrentSublesson({
+        //   title: "",
+        //   duration: "",
+        //   link: "#",
+        //   updateIndex: null,
+        //   type: null,
+        // });
       }
     } else if (
       currentSublesson
+      // currentSublesson.link !== "#" &&
+      // currentSublesson.title &&
+      // currentSublesson.duration
     ) {
-      newLessons[currentUpdateIndex] = currentSublesson;
+      newLessons[currentSublesson.updateIndex] = currentSublesson;
+      setCurrentLesson({ ...currentLesson, features: newLessons });
+      setCurrentSublesson("")
+    } else {
+      newLessons[currentUpdateIndex] = currentSublesson
       setCurrentLesson({ ...currentLesson, features: newLessons });
       setCurrentSublesson('')
->>>>>>> Stashed changes
+      setCurrentUpdateIndex(null)
     }
   };
 
   const validateAndUpdateLesson = () => {
-    if (currentLesson.title && currentLesson.chapter.length > 0) {
+    if (currentLesson.name && currentLesson.features.length > 0) {
       addLesson(currentLesson);
     }
   };
 
-<<<<<<< Updated upstream
-  const setEditSublesson = (chapter, index) => {
-    setCurrentSublesson({ ...chapter, updateIndex: index });
-=======
   const setEditSublesson = (features, index) => {
     setCurrentSublesson(features);
     setCurrentUpdateIndex(index)
->>>>>>> Stashed changes
-  };
+  }
 
   const handleRemoveSublesson = (index) => {
-    const newsubLessons = [...currentLesson.chapter];
+    const newsubLessons = [...currentLesson.features];
     newsubLessons.splice(index, 1);
-    setCurrentLesson({ ...currentLesson, chapter: newsubLessons });
+    setCurrentLesson({ ...currentLesson, features: newsubLessons });
   };
 
-  console.log(currentSublesson);
+  console.log(currentLesson);
 
   useEffect(() => {
     if (editData) setCurrentLesson(editData);
@@ -185,18 +154,6 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
   return (
     <div className="lesson-popup-cnt">
       <div className="lesson-new-cnt">
-<<<<<<< Updated upstream
-        {openTest.open && (
-          <AddTest
-            testId={currentLesson?.testId}
-            addTest={(data) => {
-              setCurrentLesson({ ...currentLesson, testId: data });
-            }}
-            closeTest={() => setOpenTest({ open: false })}
-          />
-        )}
-=======
->>>>>>> Stashed changes
         <div className="form-right-header">
           <div className="back-btn" onClick={() => cancel()}>
             <img src={BackIcon} alt="back" className="back-icon-img" />
@@ -228,12 +185,12 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
               type="text"
               name=""
               id=""
-              value={currentLesson.title}
+              value={currentLesson.name}
               className="lesson-title-input"
               onChange={(e) =>
                 setCurrentLesson({
                   ...currentLesson,
-                  title: e.target.value,
+                  name: e.target.value,
                 })
               }
             />
@@ -245,9 +202,9 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
                 type="text"
                 name=""
                 id=""
-                value={currentSublesson.title}
+                value={currentSublesson}
                 className="sublesson-title-input"
-                onChange={(e) => handleSubLessonsInput("title", e.target.value)}
+                onChange={(e) => setCurrentSublesson(e.target.value)}
               />
             </div>
             <div className="sublesson-content-cover">
@@ -288,7 +245,7 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
           </div>
         </div>
         <div className="content-list">
-          {currentLesson?.chapter?.map((sublesson, index) => (
+          {currentLesson?.features?.map((sublesson, index) => (
             <div
               className="lesson-content-input-cnt sublesson"
               key={index}
@@ -303,7 +260,7 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
                   type="text"
                   name=""
                   id=""
-                  value={sublesson?.title}
+                  value={sublesson}
                   className="sublesson-title-input sublesson-card-input"
                 />
               </div>
@@ -328,7 +285,7 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
                 </div>
                 <div
                   className="add-new-lesson-btn add-sublesson-btn edit-sublesson-btn"
-                  //   onClick={() => setPopupOpen(false)}
+                //   onClick={() => setPopupOpen(false)}
                 >
                   <div className="delete-btn">
                     <img

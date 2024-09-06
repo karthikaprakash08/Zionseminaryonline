@@ -93,17 +93,6 @@ const NewCourse = () => {
     }
   };
 
-  const handleRemoveOverview = (index) => {
-    const newOverviews = [...courseData.overviews];
-    newOverviews.splice(index, 1);
-    setCourseData({ ...courseData, overviews: newOverviews });
-  };
-
-  const setEditValues = (overview,index)=>{
-    overview.updateIndex = index
-    setCurrentOverview(overview)
-  }
-
   // console.log(courseData)
 
   return (
@@ -168,69 +157,15 @@ const NewCourse = () => {
                 onChange={(e) => handledirectInput("price", e.target.value)}
               />
             </div>
-            <div className="course-name-cnt">
-              <p>Upload degree thumbnail</p>
-              <input
-                type="file"
-                accept="png,svg"
-                onChange={(e)=>setCourseData({...courseData,thumbnail:e.target.files[0]})}
-                className="styled-input"
-              />
-            </div>
           </div>
-          <div className="course-description-cnt">
-            <p>OverviewPoints</p>
-            <div className="overview-input-cnt">
-              <input
-                type="text"
-                name=""
-                id=""
-                className="name-input"
-                value={currentOverview.heading}
-                placeholder="Heading"
-                onChange={(e) => handleOverviewInput("heading", e.target.value)}
-              />
-              <textarea
-                type="text"
-                name=""
-                id=""
-                className=" overview-input name-input"
-                placeholder="Description"
-                value={currentOverview.content}
-                onChange={(e) =>
-                  handleOverviewInput("content", e.target.value)
-                }
-              />
-              <div
-                className="overview-add-btn"
-                onClick={() => addNewOverview()}
-              >
-                <p>Add</p>
-              </div>
-            </div>
-            {courseData?.overviews?.map((overview, index) => (
-              <div className="overviewPoint-cnt" key={index}>
-                <div className="overview-head-cnt">
-                  <p className="overviewPoint-heading">{overview?.title}</p>
-                  <div className="action-btn-cnt-overview">
-                    <img
-                      src={Trash}
-                      alt="delete"
-                      className="action-img-overview"
-                      onClick={() => handleRemoveOverview(index)}
-                    />
-                    <img
-                      src={EditImg}
-                      alt="edit"
-                      className="action-img-overview"
-                      onClick={() => setEditValues(overview,index)}
-                      // onClick={() => openEdit()}
-                    />
-                  </div>
-                </div>
-                <p className="overviewPoint-content">{overview?.content}</p>
-              </div>
-            ))}
+          <div className="course-name-cnt">
+            <p>Upload degree thumbnail</p>
+            <input
+              type="file"
+              accept="png,svg"
+              onChange={(e) => setCourseData({ ...courseData, thumbnail: e.target.files[0] })}
+              className="styled-input"
+            />
           </div>
         </form>
         <form className="form-right">
@@ -255,15 +190,15 @@ const NewCourse = () => {
                 >
                   <h1 className="lesson-number">{index + 1}</h1>
                   <div className="lesson-title-cnt">
-                    <h3 className="lesson-title">{lesson?.title}</h3>
+                    <h3 className="lesson-title">{lesson?.name}</h3>
                   </div>
                   <ul className="lesson-subtitle-cnt">
-                    {lesson?.chapter?.map((sublesson) => (
+                    {lesson?.features?.map((sublesson) => (
                       <li>
-                        <p className="lesson-subtitle">{sublesson?.title}</p>
-                        <p className="lesson-duration-txt">
+                        <p className="lesson-subtitle">{sublesson}</p>
+                        {/* <p className="lesson-duration-txt">
                           duration : {sublesson?.duration}
-                        </p>
+                        </p> */}
                       </li>
                     ))}
                   </ul>
@@ -287,6 +222,10 @@ const NewCourse = () => {
           addLesson={(lesson) => addLessontoCourse(lesson)}
           editData={popupOpen?.data}
           cancel={() => setPopupOpen({ open: false, data: null })}
+          removeThisLesson={(courseName) => setCourseData((prevData) => {
+            prevData.packages =  prevData.packages.filter((obj) => obj.name !== courseName)
+            return prevData
+          })}
         />
       )}
     </div>

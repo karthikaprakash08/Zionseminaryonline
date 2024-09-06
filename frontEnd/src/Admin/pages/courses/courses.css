@@ -191,6 +191,7 @@ input[type="file"] {
   flex-direction: column;
   justify-content: space-between;
   font-weight: 600;
+  margin-top: 1rem;
 }
 
 .name-input {
@@ -278,7 +279,7 @@ input[type="file"] {
 }
 
 input[type="file"]::file-selector-button {
-  width: 136px;
+  width: 150px;
   color: transparent;
 }
 

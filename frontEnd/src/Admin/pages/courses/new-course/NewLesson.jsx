@@ -2,21 +2,24 @@ import React, { useEffect, useState } from "react";
 import Trash from "../../../assets/Images/trash.png";
 import Edit from "../../../assets/Images/edit.png";
 import Test from "../../../assets/Images/exam.png";
-import AddTest from "./AddTest";
 // import { uploadDocument, uploadVedio } from "../../../api/baseApi";
 // import { findFileType } from "../../../hooks/newCourseFunctions";
 import BackIcon from "../../../assets/Images/left-arrow.png";
 
 const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
-  const [openTest, setOpenTest] = useState({ open: false, data: null });
 
   const [currentLesson, setCurrentLesson] = useState({
+<<<<<<< Updated upstream
     title: null,
     chapter: [],
     testId: "",
+=======
+    name: null,
+    features: [],
+>>>>>>> Stashed changes
     updateIndex: null,
-    description: "test-description",
   });
+<<<<<<< Updated upstream
   const [currentSublesson, setCurrentSublesson] = useState({
     title: "",
     duration: "",
@@ -25,6 +28,10 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
     type: null,
   });
 
+=======
+  const [currentSublesson, setCurrentSublesson] = useState("")
+  const [currentUpdateIndex, setCurrentUpdateIndex] = useState(null)
+>>>>>>> Stashed changes
   const [sublessonFile, setSublessonFile] = useState(null);
 
   const handleAddFile = (file) => {
@@ -75,9 +82,10 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
       )
         Link = await getDocumentUrl();
       if (
-        currentSublesson.updateIndex === null ||
-        currentSublesson.updateIndex === undefined
+        currentUpdateIndex === null ||
+        currentUpdateIndex === undefined
       ) {
+<<<<<<< Updated upstream
         newLessons.push({ ...currentSublesson, link: Link });
         setCurrentLesson({ ...currentLesson, chapter: newLessons });
         setCurrentSublesson({
@@ -115,6 +123,23 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
         updateIndex: null,
         type: null,
       });
+=======
+        newLessons.push(currentSublesson);
+        setCurrentLesson({ ...currentLesson, features: newLessons });
+        setCurrentSublesson("")
+      } else {
+        newLessons[currentUpdateIndex] = currentSublesson
+        setCurrentLesson({ ...currentLesson, features: newLessons });
+        setCurrentSublesson('')
+        setCurrentUpdateIndex(null)
+      }
+    } else if (
+      currentSublesson
+    ) {
+      newLessons[currentUpdateIndex] = currentSublesson;
+      setCurrentLesson({ ...currentLesson, features: newLessons });
+      setCurrentSublesson('')
+>>>>>>> Stashed changes
     }
   };
 
@@ -124,8 +149,14 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
     }
   };
 
+<<<<<<< Updated upstream
   const setEditSublesson = (chapter, index) => {
     setCurrentSublesson({ ...chapter, updateIndex: index });
+=======
+  const setEditSublesson = (features, index) => {
+    setCurrentSublesson(features);
+    setCurrentUpdateIndex(index)
+>>>>>>> Stashed changes
   };
 
   const handleRemoveSublesson = (index) => {
@@ -146,7 +177,7 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
     );
     console.log(editData?.title);
     if (confirm) {
-      removeThisLesson(editData.title);
+      removeThisLesson(editData.name);
       cancel();
     }
   };
@@ -154,6 +185,7 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
   return (
     <div className="lesson-popup-cnt">
       <div className="lesson-new-cnt">
+<<<<<<< Updated upstream
         {openTest.open && (
           <AddTest
             testId={currentLesson?.testId}
@@ -163,6 +195,8 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
             closeTest={() => setOpenTest({ open: false })}
           />
         )}
+=======
+>>>>>>> Stashed changes
         <div className="form-right-header">
           <div className="back-btn" onClick={() => cancel()}>
             <img src={BackIcon} alt="back" className="back-icon-img" />
@@ -173,23 +207,23 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
                 className="add-new-lesson-btn cancel-btn"
                 onClick={() => handleDelete()}
               >
-                Delete Lesson
+                Delete Course
               </div>
             )}
             <div
               className="add-new-lesson-btn"
               onClick={() => validateAndUpdateLesson()}
             >
-              Add to Course
+              Add to Degree
             </div>
           </div>
         </div>
         <h3 className="course-new-title form-right-heading">
-          Create New Lesson
+          Create New Course
         </h3>
         <div className="new-lesson-top">
           <div className="lesson-name-cnt">
-            <p>Lesson Title</p>
+            <p>Course Title</p>
             <input
               type="text"
               name=""
@@ -203,24 +237,10 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
                 })
               }
             />
-            <div
-              className="lesson-test-overview-cnt"
-              onClick={() =>
-                setOpenTest({ open: true, data: currentLesson.testId })
-              }
-            >
-              <img src={Test} alt="test" className="test" />
-              <p>
-                {!currentLesson?.testId?.length > 3
-                  ? "No Tests has been created for this lesson"
-                  : `Test click to update`}
-              </p>
-              <div className="lesson-test-overview-btn"></div>
-            </div>
           </div>
           <div className="lesson-content-input-cnt">
             <div className="sublesson-name-cnt">
-              <p>Sub lesson Title</p>
+              <p>Lesson Title</p>
               <input
                 type="text"
                 name=""
@@ -262,7 +282,7 @@ const NewLesson = ({ addLesson, cancel, editData, removeThisLesson }) => {
                 className="add-new-lesson-btn add-sublesson-btn"
                 onClick={() => addSublessons()}
               >
-                Add
+                {currentUpdateIndex ? "Update" : "Add"}
               </div>
             </div>
           </div>

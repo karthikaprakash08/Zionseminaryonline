@@ -6,6 +6,7 @@ import EditImg from "../../../assets/Images/edit.png";
 import { useNavigate } from "react-router-dom";
 import NewLesson from "./NewLesson";
 import { addNewDegree } from "../../../api/baseApi";
+import { setNewDegree } from "../../../firebase/degreeApi";
 // import { addnewCourse } from "../../../api/baseApi";
 // import { convertToCourseFormData } from "../../../hooks/newCourseFunctions";
 
@@ -83,15 +84,9 @@ const NewCourse = () => {
       courseData.packages.length > 0 &&
       courseData.price
     ) {
-      try {
-        // const courseFormData = convertToCourseFormData(courseData)
-        console.log(courseData)
-        const { data } = await addNewDegree(courseData);
-        console.log(data);
-        navigate('/admin')
-      } catch (error) {
-        console.log(error);
-      }
+      // const courseFormData = convertToCourseFormData(courseData)
+      const response = await setNewDegree(courseData);
+      if (response) navigate('/admin')
     }
   };
 
@@ -225,7 +220,7 @@ const NewCourse = () => {
           editData={popupOpen?.data}
           cancel={() => setPopupOpen({ open: false, data: null })}
           removeThisLesson={(courseName) => setCourseData((prevData) => {
-            prevData.packages =  prevData.packages.filter((obj) => obj.name !== courseName)
+            prevData.packages = prevData.packages.filter((obj) => obj.name !== courseName)
             return prevData
           })}
         />

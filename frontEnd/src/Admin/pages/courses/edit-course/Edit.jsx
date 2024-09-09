@@ -7,7 +7,7 @@ import Nolesson from "../../../assets/Images/no-lesson-illustration.svg";
 import BackIcon from "../../../assets/Images/left-arrow.png";
 import { useNavigate } from "react-router-dom";
 import NewLesson from "../new-course/NewLesson";
-import { deleteDegree, editDegree } from "../../../api/baseApi";
+import { deleteDegree, updateDegree } from "../../../firebase/degreeApi";
 
 const Edit = ({ courseDetails }) => {
   const [popupOpen, setPopupOpen] = useState({ open: false, data: null });
@@ -92,9 +92,9 @@ const Edit = ({ courseDetails }) => {
       // courseData.price
     ) {
       try {
-        const { data } = await editDegree(courseDetails._id,courseData);
-        console.log(data);
-        navigate("/admin");
+        console.log(courseDetails)
+        const res = await updateDegree(courseData,courseDetails.id);
+        if(res) navigate("/admin");
       } catch (error) {
         console.log(error);
       }
@@ -111,7 +111,7 @@ const Edit = ({ courseDetails }) => {
     );
     if (confirm) {
       try {
-        const res = await deleteDegree(courseDetails._id);
+        const res = await deleteDegree(courseDetails.id);
         if (res) navigate("/admin");
       } catch (error) {
         console.log(error);

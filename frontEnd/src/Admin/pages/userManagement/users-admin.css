@@ -88,6 +88,7 @@
   padding: 0 1rem 0 0.5rem;
   cursor: pointer;
 }
+
 .add-icon {
   height: 40%;
 }
@@ -114,7 +115,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
 }
 
 .users-details-header p {
@@ -138,9 +138,11 @@
   align-items: center;
   gap: 1rem;
 }
+
 .user-date-cnt {
   width: 15%;
 }
+
 .profile-img {
   width: 2rem;
   height: 2rem;
@@ -152,6 +154,7 @@
   font-size: smaller;
   font-weight: 500;
 }
+
 .name-cnt p {
   font-size: smaller;
   font-weight: 400;
@@ -187,29 +190,32 @@
 }
 
 .add-new-user-cnt {
-  width: 50%;
-  min-height: 50%;
+  width: 90%;
+  min-height: 70%;
   border-radius: 1rem;
-  padding: 2rem;
+  padding: 1.5rem;
   background-color: #fff;
 }
 
 .user-details-from {
   width: 100%;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 1rem;
+  gap: .5rem;
 }
 
 .user-input {
-  width: 15rem;
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .bottom-btn-cnt {
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -245,6 +251,7 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
 .user-ofiicial-details-cnt {
   width: 100%;
   display: flex;
@@ -270,6 +277,7 @@
   flex-direction: column;
   gap: 1rem;
 }
+
 .courses-history-header {
   position: absolute;
   top: 0;
@@ -289,9 +297,11 @@
   position: relative;
   background: #efefef;
 }
+
 .courses-history-content h5 {
   font-weight: 400;
 }
+
 .courses-history-content h6 {
   padding: 2px 5px;
   font-weight: 400;
@@ -331,25 +341,25 @@
   }
 }
 
-.file-input-hide{
-    opacity: 0;
+.file-input-hide {
+  opacity: 0;
 }
 
 .file-upload {
-    position: absolute;
-    top: 1rem;
-    left: 2.5rem;
+  position: absolute;
+  top: 1rem;
+  left: 2.5rem;
 }
 
 @media (min-width: 700px) {
-  .user-page{
+  .user-page {
     padding: 2rem 2rem 0 2rem;
     font-size: medium;
   }
 
-  .users-list-cnt{
+  .users-list-cnt {
     font-size: medium;
-  } 
+  }
 }
 
 @media (min-width: 1000px) {
@@ -366,14 +376,15 @@
     font-size: 1rem;
   }
 
-  .users-details-header{
+  .users-details-header {
     padding: 1rem;
   }
 
-  .users-list-cnt{
+  .users-list-cnt {
     margin-top: 2rem;
   }
-  .users-list-header{
+
+  .users-list-header {
     margin-top: 2rem;
   }
 }

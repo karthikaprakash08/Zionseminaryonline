@@ -20,22 +20,6 @@ const options = {
     { value: 'female', label: 'Female' },
     { value: 'other', label: 'Other' }
   ],
-  //  applyingFor: [
-  //    { value: 'certificateFamilyCounselling', label: 'Certificate in Family Counselling' },
-  //    { value: 'diplomaTheology', label: 'Diploma in Theology [Dip.Th]' },
-  //    { value: 'bThFastTrack', label: 'B.Th [Bachelor of Theology] - Fast track [2 years]' },
-  //    { value: 'bTh3Years', label: 'B.Th (3 Years)' },
-  //    { value: 'mDivFastTrack', label: 'M.Div [Master of Divinity] - Fast track [2 years]' },
-  //    { value: 'mDivRegular', label: 'M.Div [Master of Divinity] Regular 2 years' },
-  //    { value: 'mTh', label: 'M.Th [Master of Theology]' },
-  //    { value: 'phD', label: 'Ph.D [Doctor of Philosophy]' },
-  //    { value: 'dMin', label: 'D.Min [Doctorate of Ministry]' },
-  //    { value: 'dD', label: 'D.D [Doctor of Divinity]' },
-  //    { value: 'bThMDivIntegrated', label: 'B.Th & M.Div [Integrated Course]' },
-  //    { value: 'mDivMThIntegrated', label: 'M.Div & M.Th [Integrated Course]' },
-  //    { value: 'mDivDMinIntegrated', label: 'M.Div & D.Min [Integrated Course]' },
-  //    { value: 'mThPhDIntegrated', label: 'M.Th & Ph.D [Integrated Course]' }
-  //  ]
 };
 
 function Register() {
@@ -63,20 +47,16 @@ function Register() {
 
   // Submit 
   const onSubmit = async (data) => {
-
     try {
-
       const signatureFile = data.signature[0];
       const signatureRef = ref(storage, `signatures/${signatureFile.name}`);
       await uploadBytes(signatureRef, signatureFile);
       const signatureURL = await getDownloadURL(signatureRef);
 
-
       const passportPhotoFile = data.passportSizePhoto[0];
       const passportPhotoRef = ref(storage, `photos/${passportPhotoFile.name}`);
       await uploadBytes(passportPhotoRef, passportPhotoFile);
       const passportPhotoURL = await getDownloadURL(passportPhotoRef);
-
 
       const educationCertFile = data.educationCertificate[0];
       const educationCertRef = ref(storage, `certificates/${educationCertFile.name}`);

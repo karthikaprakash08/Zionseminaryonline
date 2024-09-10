@@ -1,30 +1,50 @@
 import React, { useEffect, useState } from "react";
-// import { updateUser } from "../../api/baseApi";
+import Select from 'react-select';
+import { getAllDegrees } from "../../firebase/degreeApi";
+
+const options = {
+  maritalStatus: [
+    { value: 'single', label: 'Single' },
+    { value: 'married', label: 'Married' },
+    { value: 'divorced', label: 'Divorced' },
+    { value: 'widowed', label: 'Widowed' }
+  ],
+  gender: [
+    { value: 'male', label: 'Male' },
+    { value: 'female', label: 'Female' },
+    { value: 'other', label: 'Other' }
+  ],
+};
 
 const EditUserData = ({ closeEditUser, currentData }) => {
   const [userData, setUserData] = useState(null);
+  const [courseOptions, setCourseOptions] = useState([]);
 
   useEffect(() => {
     setUserData(currentData);
   }, [currentData]);
+
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const coursesSnapshot = await getAllDegrees();
+      const coursesList = coursesSnapshot?.map((doc) => ({
+        value: doc?.id,
+        label: doc.data()?.domain,
+      }));
+      setCourseOptions(coursesList);
+    };
+
+    fetchCourses();
+  }, []);
 
   const handleValueChange = (type, value) => {
     setUserData({ ...userData, [type]: value });
   };
 
   const updateData = async () => {
-    const formData = new FormData();
-    formData.append("name", userData?.name);
-    formData.append("email", userData?.email);
-    formData.append("companyname", userData?.companyname);
-    formData.append("position", userData?.position);
-    formData.append("gender", userData?.gender);
-    formData.append("profilePic", userData?.profilePic);
-    formData.append("password", userData?.password);
     try {
-      console.log(currentData?._id);
-      // const response = await updateUser(formData, currentData?._id);
-      // if (response) closeEditUser();
+
     } catch (error) {
       console.log(error);
     }
@@ -39,105 +59,186 @@ const EditUserData = ({ closeEditUser, currentData }) => {
         </>
         <form className="user-details-from">
           <div className="course-name-cnt user-input">
-            <p>Name</p>
+            <p>First Name *</p>
             <input
               type="text"
-              name=""
-              value={userData?.name}
-              id=""
               className="name-input "
-              onChange={(e) => handleValueChange("name", e.target.value)}
+              placeholder="Enter user first name"
+              onChange={(e) => handleValueChange("firstName", e.target.value)}
             />
           </div>
           <div className="course-name-cnt user-input">
-            <p>Email</p>
+            <p>Last Name *</p>
             <input
               type="text"
-              name=""
-              value={userData?.email}
-              id=""
+              className="name-input "
+              placeholder="Enter user last name"
+              onChange={(e) => handleValueChange("lastName", e.target.value)}
+            />
+          </div>
+          <div className="course-name-cnt user-input">
+            <p>Mobile No *</p>
+            <input
+              type="number"
+              placeholder="Enter mobile number"
+              className="name-input "
+              onChange={(e) => handleValueChange("mobileNo", e.target.value)}
+            />
+          </div>
+          <div className="course-name-cnt user-input">
+            <p>Theological Qualification *</p>
+            <input
+              type="text"
+              className="name-input "
+              placeholder="Enter theological Qualification"
+              onChange={(e) => handleValueChange("theologicalQualification", e.target.value)}
+            />
+          </div>
+          <div className="course-name-cnt user-input">
+            <p>Present Address *</p>
+            <input
+              type="text"
+              className="name-input "
+              placeholder="Enter Present Address"
+              onChange={(e) => handleValueChange("presentAddress", e.target.value)}
+            />
+          </div>
+          <div className="course-name-cnt user-input">
+            <p>Gender *</p>
+            <Select
+              placeholder="Select Gender "
+              options={options.gender}
+              // className="name-input"
+              onChange={(e) => handleValueChange("gender", e.target.value)}
+            />
+          </div>
+          <div className="course-name-cnt user-input">
+            <p>Ministry Experience *</p>
+            <input
+              type="text"
+              placeholder="Enter ministry experience"
+              value={userData?.ministryExperience || ''}
+              className="name-input "
+              onChange={(e) => handleValueChange("ministryExperience", e.target.value)}
+            />
+          </div>
+          <div className="course-name-cnt user-input">
+            <p>Email *</p>
+            <input
+              type="text"
+              placeholder="Enter user email"
+              value={userData?.email || ''}
               className="name-input "
               onChange={(e) => handleValueChange("email", e.target.value)}
             />
           </div>
           <div className="course-name-cnt user-input">
-            <p>Company</p>
+            <p>Salvation Experience *
+            </p>
             <input
               type="text"
-              name=""
-              value={userData?.companyname}
-              id=""
+              placeholder="Enter salvation experience"
+              value={userData?.salvationExperience || ''}
               className="name-input "
-              onChange={(e) => handleValueChange("companyname", e.target.value)}
+
+              onChange={(e) => handleValueChange("salvationExperience", e.target.value)}
             />
           </div>
           <div className="course-name-cnt user-input">
-            <p>Position</p>
-            <input
-              type="text"
-              name=""
-              value={userData?.position}
-              id=""
-              className="name-input "
-              onChange={(e) => handleValueChange("position", e.target.value)}
+            <p>Marital Status *</p>
+            <Select
+              options={options.maritalStatus}
+              onChange={(e) => handleValueChange("maritalStatus", e.value)}
             />
           </div>
           <div className="course-name-cnt user-input">
-            <p>Geneder</p>
+            <p>Educational Qualification *</p>
             <input
               type="text"
-              name=""
-              value={userData?.gender}
-              id=""
               className="name-input "
-              onChange={(e) => handleValueChange("gender", e.target.value)}
+              placeholder="Enter Educational Qualification"
+              onChange={(e) => handleValueChange("educationalQualification", e.target.value)}
+            />
+          </div>
+          <div className="course-name-cnt user-input">
+            <p>User Name *</p>
+            <input
+              type="text"
+              className="name-input "
+              placeholder="Enter user name"
+            // onChange={(e) => handleChnageData("", e.target.value)}
+            />
+          </div>
+          <div className="course-name-cnt user-input">
+            <p>DOB *</p>
+            <input
+              type="date"
+              className="name-input "
+              onChange={(e) => handleValueChange("dob", e.target.value)}
+            />
+          </div>
+          <div className="course-name-cnt user-input">
+            <p>Applying for *</p>
+            <Select
+              options={courseOptions}
+              onChange={(e) => handleValueChange("applyingFor", e.value)}
+            />
+          </div>
+          <div className="course-name-cnt user-input">
+            <p>Password *</p>
+            <input
+              type="password"
+              className="name-input "
+              placeholder="Enter user password"
+              onChange={(e) => handleValueChange("password", e.target.value)}
             />
           </div>
           <div
             className="course-name-cnt name-input user-input "
             style={{ position: "relative" }}
           >
-            <p className="file-upload ">Upload Profile</p>
+            <p className="file-upload ">{userData?.signatureURL?.name ? userData?.signatureURL?.name.slice(0, 20) : "Upload Signature *"}</p>
             <input
               type="file"
-              name=""
-              id=""
               className="name-input file-input-hide "
-              placeholder="upload"
               onChange={(e) =>
-                setUserData({ ...userData, profilePic: e.target.files[0] })
+                handleValueChange('signatureURL', e.target.files[0],)
               }
             />
           </div>
-          <div className="course-name-cnt user-input">
-            <p>Password</p>
+          <div
+            className="course-name-cnt name-input user-input "
+            style={{ position: "relative" }}
+          >
+            <p className="file-upload ">{userData?.passportPhotoURL?.name ? userData?.passportPhotoURL?.name.slice(0, 20) : "Upload Passport Size Photo *"}</p>
             <input
-              type="text"
-              name=""
-              value={userData?.password}
-              id=""
-              className="name-input "
-              onChange={(e) => handleValueChange("password", e.target.value)}
+              type="file"
+              className="name-input file-input-hide "
+              onChange={(e) =>
+                handleValueChange('passportPhotoURL', e.target.files[0],)
+              }
             />
           </div>
-          {/* <div className="course-name-cnt user-input">
-            <p>Geneder</p>
+          <div
+            className="course-name-cnt name-input user-input "
+            style={{ position: "relative" }}
+          >
+            <p className="file-upload ">{userData?.educationCertURL?.name ? userData?.educationCertURL?.name.slice(0, 20) : "Upload Education Certificate *"}</p>
             <input
-              type="text"
-              name=""
-              value={userData?.gender}
-              id=""
-              className="name-input "
-              onChange={(e) => handleValueChange("gender", e.target.value)}
+              type="file"
+              className="name-input file-input-hide "
+              onChange={(e) =>
+                handleValueChange('educationCertURL', e.target.files[0],)
+              }
             />
-          </div> */}
+          </div>
         </form>
         <div className="bottom-btn-cnt">
           <div className=" course-delete-btn " onClick={() => closeEditUser()}>
             Cancel
           </div>
           <div className="add-new-lesson-btn" onClick={() => updateData()}>
-            Add User
+            Add Usera
           </div>
         </div>
       </div>

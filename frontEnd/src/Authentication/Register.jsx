@@ -7,6 +7,7 @@ import { db, storage } from '../Admin/firebase/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import { getAllDegrees } from '../Admin/firebase/degreeApi';
+import { addUser } from '../Admin/firebase/userApi';
 
 const options = {
   maritalStatus: [
@@ -47,47 +48,8 @@ function Register() {
 
   // Submit 
   const onSubmit = async (data) => {
-    try {
-      const signatureFile = data.signature[0];
-      const signatureRef = ref(storage, `signatures/${signatureFile.name}`);
-      await uploadBytes(signatureRef, signatureFile);
-      const signatureURL = await getDownloadURL(signatureRef);
-
-      const passportPhotoFile = data.passportSizePhoto[0];
-      const passportPhotoRef = ref(storage, `photos/${passportPhotoFile.name}`);
-      await uploadBytes(passportPhotoRef, passportPhotoFile);
-      const passportPhotoURL = await getDownloadURL(passportPhotoRef);
-
-      const educationCertFile = data.educationCertificate[0];
-      const educationCertRef = ref(storage, `certificates/${educationCertFile.name}`);
-      await uploadBytes(educationCertRef, educationCertFile);
-      const educationCertURL = await getDownloadURL(educationCertRef);
-
-      await addDoc(collection(db, 'users'), {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        mobileNo: data.mobileNo,
-        email: data.email,
-        maritalStatus: data.maritalStatus,
-        dob: data.dob,
-        gender: data.gender,
-        applyingFor: data.applyingFor,
-        educationalQualification: data.educationalQualification,
-        theologicalQualification: data.theologicalQualification,
-        presentAddress: data.presentAddress,
-        ministryExperience: data.ministryExperience,
-        salvationExperience: data.salvationExperience,
-        signatureURL: signatureURL,
-        passportPhotoURL: passportPhotoURL,
-        educationCertURL: educationCertURL
-      });
-
-      console.log('Data successfully saved to Firestore and files uploaded to Storage!');
-
-      navigate('/admin');
-    } catch (error) {
-      console.error('Error saving data or uploading files:', error);
-    }
+    const res = await addUser(data)
+    res && navigate('/admin');
   };
 
   return (

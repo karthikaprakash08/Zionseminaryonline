@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Select from 'react-select';
 import { getAllDegrees } from "../../firebase/degreeApi";
+import { addUser } from "../../firebase/userApi";
 // import { addnewUser } from "../../api/baseApi";
 
 const options = {
@@ -37,7 +38,7 @@ const AddnewUser = ({ closeNewUser }) => {
     passportPhotoURL: null,
     educationCertURL: null,
   });
-  
+
   const [courseOptions, setCourseOptions] = useState([]);
 
 
@@ -59,10 +60,8 @@ const AddnewUser = ({ closeNewUser }) => {
   };
 
   const createNewUser = async () => {
-    try {
-    } catch (error) {
-      console.log(error);
-    }
+    const res = await addUser(newUserData)
+    res && closeNewUser()
   };
 
   console.log(newUserData)
@@ -219,7 +218,7 @@ const AddnewUser = ({ closeNewUser }) => {
               type="file"
               className="name-input file-input-hide "
               onChange={(e) =>
-                handleChangeData('signatureURL', e.target.files[0],)
+                handleChangeData('signatureURL', e.target.files,)
               }
             />
           </div>
@@ -232,7 +231,7 @@ const AddnewUser = ({ closeNewUser }) => {
               type="file"
               className="name-input file-input-hide "
               onChange={(e) =>
-                handleChangeData('passportPhotoURL', e.target.files[0],)
+                handleChangeData('passportPhotoURL', e.target.files,)
               }
             />
           </div>
@@ -245,7 +244,7 @@ const AddnewUser = ({ closeNewUser }) => {
               type="file"
               className="name-input file-input-hide "
               onChange={(e) =>
-                handleChangeData('educationCertURL', e.target.files[0],)
+                handleChangeData('educationCertURL', e.target.files,)
               }
             />
           </div>

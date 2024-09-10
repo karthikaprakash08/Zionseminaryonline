@@ -63,6 +63,7 @@ const EditUserData = ({ closeEditUser, currentData }) => {
             <input
               type="text"
               className="name-input "
+              value={userData?.firstName}
               placeholder="Enter user first name"
               onChange={(e) => handleValueChange("firstName", e.target.value)}
             />
@@ -72,6 +73,7 @@ const EditUserData = ({ closeEditUser, currentData }) => {
             <input
               type="text"
               className="name-input "
+              value={userData?.lastName}
               placeholder="Enter user last name"
               onChange={(e) => handleValueChange("lastName", e.target.value)}
             />
@@ -80,6 +82,7 @@ const EditUserData = ({ closeEditUser, currentData }) => {
             <p>Mobile No *</p>
             <input
               type="number"
+              value={userData?.mobileNo}
               placeholder="Enter mobile number"
               className="name-input "
               onChange={(e) => handleValueChange("mobileNo", e.target.value)}
@@ -90,6 +93,7 @@ const EditUserData = ({ closeEditUser, currentData }) => {
             <input
               type="text"
               className="name-input "
+              value={userData?.theologicalQualification}
               placeholder="Enter theological Qualification"
               onChange={(e) => handleValueChange("theologicalQualification", e.target.value)}
             />
@@ -99,6 +103,7 @@ const EditUserData = ({ closeEditUser, currentData }) => {
             <input
               type="text"
               className="name-input "
+              value={userData?.presentAddress}
               placeholder="Enter Present Address"
               onChange={(e) => handleValueChange("presentAddress", e.target.value)}
             />
@@ -108,6 +113,7 @@ const EditUserData = ({ closeEditUser, currentData }) => {
             <Select
               placeholder="Select Gender "
               options={options.gender}
+              value={userData?.gender}
               // className="name-input"
               onChange={(e) => handleValueChange("gender", e.target.value)}
             />
@@ -148,6 +154,7 @@ const EditUserData = ({ closeEditUser, currentData }) => {
             <p>Marital Status *</p>
             <Select
               options={options.maritalStatus}
+              defaultValue={userData?.maritalStatus}
               onChange={(e) => handleValueChange("maritalStatus", e.value)}
             />
           </div>
@@ -156,6 +163,7 @@ const EditUserData = ({ closeEditUser, currentData }) => {
             <input
               type="text"
               className="name-input "
+              value={userData?.educationalQualification}
               placeholder="Enter Educational Qualification"
               onChange={(e) => handleValueChange("educationalQualification", e.target.value)}
             />
@@ -174,6 +182,7 @@ const EditUserData = ({ closeEditUser, currentData }) => {
             <input
               type="date"
               className="name-input "
+              value={userData?.dob}
               onChange={(e) => handleValueChange("dob", e.target.value)}
             />
           </div>
@@ -181,6 +190,7 @@ const EditUserData = ({ closeEditUser, currentData }) => {
             <p>Applying for *</p>
             <Select
               options={courseOptions}
+              defaultValue={userData?.applyingFor}
               onChange={(e) => handleValueChange("applyingFor", e.value)}
             />
           </div>
@@ -189,6 +199,7 @@ const EditUserData = ({ closeEditUser, currentData }) => {
             <input
               type="password"
               className="name-input "
+              value={userData?.password}
               placeholder="Enter user password"
               onChange={(e) => handleValueChange("password", e.target.value)}
             />
@@ -238,7 +249,7 @@ const EditUserData = ({ closeEditUser, currentData }) => {
             Cancel
           </div>
           <div className="add-new-lesson-btn" onClick={() => updateData()}>
-            Add Usera
+            Add User
           </div>
         </div>
       </div>

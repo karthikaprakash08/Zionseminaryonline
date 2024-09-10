@@ -19,8 +19,8 @@ const EditUser = ({ open, openEdit, data }) => {
       style={{ right: open?.open ? "1rem" : " -28rem" }}
     >
       <div className="profile-details-cnt">
-        <img src={potrate} alt="potrate" className="profile-details-img" />
-        <h4>{data?.name}</h4>
+        <img src={data?.passportPhotoURL} alt="potrate" className="profile-details-img" />
+        <h4>{data?.firstName} {data?.lastName}</h4>
         <div className="action-btn-cnt">
           <img
             src={Trash}
@@ -46,12 +46,12 @@ const EditUser = ({ open, openEdit, data }) => {
           <p>{data?.gender}</p>
         </div>
         <div className="ofiicial-detail">
-          <h3 className="details-text">company</h3>
-          <p>{data?.companyname}</p>
+          <h3 className="details-text">Mobile</h3>
+          <p>{data?.mobileNo}</p>
         </div>
         <div className="ofiicial-detail">
-          <h3 className="details-text">position</h3>
-          <p>{data?.position}</p>
+          <h3 className="details-text">Address</h3>
+          <p>{data?.presentAddress}</p>
         </div>
       </div>
       <div className="courses-history">
